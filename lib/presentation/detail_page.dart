@@ -250,4 +250,5 @@ class _DetailPageState extends State<DetailPage> {
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
     return SliverAppBarWidget(restaurant: restaurant);
   }
+
 }
