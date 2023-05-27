@@ -4,20 +4,15 @@ import 'package:foodie_hub/utils/style_manager.dart';
 import 'package:foodie_hub/widgets/card_search_restaurant.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/restaurant_provider.dart';
+import '../utils/result_state_util.dart';
 import '../utils/shimmer.dart';
 import '../widgets/search_widget.dart';
 
-class SearchRestaurant extends StatefulWidget {
+class SearchRestaurant extends StatelessWidget {
   static const String routeName = '/search-restaurant';
 
   const SearchRestaurant({super.key});
 
-  @override
-  State<SearchRestaurant> createState() => _SearchRestaurantState();
-}
-
-class _SearchRestaurantState extends State<SearchRestaurant> {
   @override
   Widget build(BuildContext context) {
     final SearchRestaurantProvider searchProvider =
@@ -48,9 +43,9 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
 
   Widget _buildSearchedList(BuildContext context) {
     return Consumer<SearchRestaurantProvider>(builder: (context, state, _) {
-      if (state.state == ResultState.Loading) {
+      if (state.state == ResultState.loading) {
         return const Center(child: ShimmerContainer());
-      } else if (state.state == ResultState.HasData) {
+      } else if (state.state == ResultState.hasData) {
         return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -61,7 +56,7 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
                 restaurant: restaurant,
               );
             });
-      } else if (state.state == ResultState.NoData) {
+      } else if (state.state == ResultState.noData) {
         return Center(
           child: Material(
             child: Text(
@@ -70,13 +65,13 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
             ),
           ),
         );
-      } else if (state.state == ResultState.Error) {
+      } else if (state.state == ResultState.error) {
         return Center(
           child: Material(
             child: Text(state.message),
           ),
         );
-      } else if (state.state == ResultState.InitialState) {
+      } else if (state.state == ResultState.initialState) {
         return Center(
             child: Text(
           'Search Restaurant Here',

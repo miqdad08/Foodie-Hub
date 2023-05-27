@@ -8,7 +8,7 @@ class Restaurant {
   final String address;
   final String pictureId;
   final List<Category> categories;
-  final Menus menus;
+  final Menu menus;
   final double rating;
   final List<CustomerReview> customerReviews;
 
@@ -35,24 +35,25 @@ class Restaurant {
       pictureId: json["pictureId"],
       categories: List<Category>.from(
           json["categories"].map((x) => Category.fromJson(x))),
-      menus: Menus.fromJson(json["menus"]),
+      menus: Menu.fromJson(json["menus"]),
       rating: json["rating"]?.toDouble(),
       customerReviews: List<CustomerReview>.from(
           json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "description": description,
-        "city": city,
-        "address": address,
-        "pictureId": pictureId,
-        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-        "menus": menus.toJson(),
-        "rating": rating,
-        "customerReviews":
-            List<dynamic>.from(customerReviews.map((x) => x.toJson())),
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "description": description,
+      "city": city,
+      "address": address,
+      "pictureId": pictureId,
+      "categories": categories.map((x) => x.toJson()).toList(),
+      "menus": menus.toJson(),
+      "rating": rating,
+      "customerReviews": customerReviews.map((x) => x.toJson()).toList(),
+    };
+  }
 }

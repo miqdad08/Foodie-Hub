@@ -14,11 +14,10 @@ class ApiService {
       'https://restaurant-api.dicoding.dev/images/small/';
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev';
   static const String _searchRestaurant = '/search?q=';
-  static const String _listRestaurant = '/list';
 
   Future<RestaurantModel> getRestaurant() async {
-    final response = await http.get(Uri.parse("$_baseUrl/list"));
     try {
+      final response = await http.get(Uri.parse("$_baseUrl/list"));
       if (response.statusCode == 200) {
         return RestaurantModel.fromJson(jsonDecode(response.body));
       } else {

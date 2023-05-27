@@ -7,46 +7,60 @@ import 'package:foodie_hub/widgets/card_menu.dart';
 import 'package:foodie_hub/widgets/form_review_widget.dart';
 import 'package:foodie_hub/widgets/sliver_appbar_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../data/models/customer_review.dart';
 import '../data/models/restaurant.dart';
-import '../provider/restaurant_provider.dart';
 import '../provider/restaurant_review_provider.dart';
+import '../utils/result_state_util.dart';
 import '../utils/style_manager.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   static const routeName = '/detail-page';
 
   final RestaurantElement restaurant;
 
   DetailPage({super.key, required this.restaurant});
 
-  TextEditingController reviewController = TextEditingController();
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
 
-  TextEditingController nameController = TextEditingController();
+class _DetailPageState extends State<DetailPage> {
+
+  final TextEditingController reviewController = TextEditingController();
+
+  final TextEditingController nameController = TextEditingController();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    final reviewProvider = Provider.of<RestaurantReviewProvider>(context, listen: false);
+    reviewProvider.resetState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    reviewController.dispose();
+    nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final reviewProvider =
-        Provider.of<RestaurantReviewProvider>(context, listen: false);
-
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      reviewProvider.resetState();
-    });
-
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
-          apiService: ApiService(), restaurant: restaurant),
+          apiService: ApiService(), restaurant: widget.restaurant),
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, state, _) {
-          if (state.state == ResultState.Loading) {
+          if (state.state == ResultState.loading) {
             return _buildScaffoldCenter(
                 context, const CircularProgressIndicator());
-          } else if (state.state == ResultState.HasData) {
+          } else if (state.state == ResultState.hasData) {
             return _buildScaffold(context, state.result.restaurant);
-          } else if (state.state == ResultState.NoData) {
+          } else if (state.state == ResultState.noData) {
             return _buildScaffoldCenter(context, Text(state.message));
-          } else if (state.state == ResultState.Error) {
+          } else if (state.state == ResultState.error) {
             return _buildScaffoldCenter(context, Text(state.message));
           } else {
             return _buildScaffoldCenter(context, Text(state.message));
@@ -181,7 +195,7 @@ class DetailPage extends StatelessWidget {
     return FormReviewWidget(
       nameController: nameController,
       reviewController: reviewController,
-      restaurant: restaurant,
+      restaurant: widget.restaurant,
     );
   }
 
@@ -189,15 +203,15 @@ class DetailPage extends StatelessWidget {
     return Consumer<RestaurantReviewProvider>(
       builder: (context, state, _) {
         print(state.state);
-        if (state.state == ResultState.Loading) {
+        if (state.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state.state == ResultState.HasData) {
+        } else if (state.state == ResultState.hasData) {
           return _buildListCustomerReview(state.result.customerReviews);
-        } else if (state.state == ResultState.NoData) {
+        } else if (state.state == ResultState.noData) {
           return Text(state.message);
-        } else if (state.state == ResultState.Error) {
+        } else if (state.state == ResultState.error) {
           return Text(state.message);
-        } else if (state.state == ResultState.InitialState) {
+        } else if (state.state == ResultState.initialState) {
           return _buildListCustomerReview(list);
         } else {
           return Text(state.message);

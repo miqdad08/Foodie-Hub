@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/data/api/api_service.dart';
 import 'package:foodie_hub/data/models/customer_review_model.dart';
-import 'package:foodie_hub/provider/restaurant_provider.dart';
+
+import '../utils/result_state_util.dart';
 
 
 
@@ -24,27 +25,27 @@ class RestaurantReviewProvider extends ChangeNotifier {
 
 
   void resetState(){
-    _state = ResultState.InitialState;
+    _state = ResultState.initialState;
     notifyListeners();
   }
 
   Future<dynamic> postReviewRestaurant(
       String id, String name, String review) async {
     try {
-      _state = ResultState.Loading;
+      _state = ResultState.loading;
       notifyListeners();
       final restaurantPostReview = await apiService.postReviewRestaurant(id, name, review);
       restaurantPostReview.fold((error) {
-        _state = ResultState.NoData;
+        _state = ResultState.noData;
         notifyListeners();
         return _message = 'Gagal Post Review';
       }, (data) {
-        _state = ResultState.HasData;
+        _state = ResultState.hasData;
         notifyListeners();
         return _restaurantCustomerReview = data;
       });
     } catch (e) {
-      _state = ResultState.Error;
+      _state = ResultState.error;
       notifyListeners();
       return _message = 'Error --> $e';
     }
