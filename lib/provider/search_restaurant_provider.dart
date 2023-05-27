@@ -13,7 +13,7 @@ class SearchRestaurantProvider extends ChangeNotifier {
   SearchRestaurantProvider({required this.apiService});
 
   late RestaurantSearch _searchResult;
-  ResultState _state = ResultState.InitialState;
+  ResultState _state = ResultState.initialState;
   String _message = '';
 
   String get message => _message;
@@ -22,29 +22,29 @@ class SearchRestaurantProvider extends ChangeNotifier {
 
   Future performSearch(String query) async {
     if (query.isEmpty) {
-      _state = ResultState.NoData;
+      _state = ResultState.noData;
       notifyListeners();
       return _message = 'Search Something';
     }
     try {
-      _state = ResultState.Loading;
+      _state = ResultState.loading;
       notifyListeners();
       final restaurant = await apiService.searchRestaurant(query);
       if (restaurant.restaurants.isEmpty) {
-        _state = ResultState.NoData;
+        _state = ResultState.noData;
         notifyListeners();
         return _message = 'Theres No Restaurant You Searched For';
       } else {
-        _state = ResultState.HasData;
+        _state = ResultState.hasData;
         notifyListeners();
         return _searchResult = restaurant;
       }
     }on SocketException {
-      _state = ResultState.Error;
+      _state = ResultState.error;
       notifyListeners();
       return _message = 'No Internet Connection, Please Try Again';
     } catch (e) {
-      _state = ResultState.Error;
+      _state = ResultState.error;
       notifyListeners();
       return _message = 'Error --> $e';
     }

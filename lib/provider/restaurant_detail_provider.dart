@@ -16,7 +16,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
 
   late RestaurantDetail _restaurantDetail;
 
-  late ResultState _state = ResultState.InitialState;
+  late ResultState _state = ResultState.initialState;
   String _message = '';
 
   String get message => _message;
@@ -27,27 +27,27 @@ class RestaurantDetailProvider extends ChangeNotifier {
 
   Future<dynamic> _fetchDetailRestaurant() async {
     try {
-      _state = ResultState.Loading;
+      _state = ResultState.loading;
       notifyListeners();
       final restaurantDetail =
           await apiService.getRestaurantById(restaurant.id);
       print(restaurantDetail.toString());
 
       restaurantDetail.fold((error) {
-        _state = ResultState.NoData;
+        _state = ResultState.noData;
         notifyListeners();
         return _message = 'Empty Data';
       }, (data) {
-        _state = ResultState.HasData;
+        _state = ResultState.hasData;
         notifyListeners();
         return _restaurantDetail = data;
       });
     } on SocketException {
-      _state = ResultState.Error;
+      _state = ResultState.error;
       notifyListeners();
       return _message = 'No Internet Connection, Please Try Again';
     } catch (e) {
-      _state = ResultState.Error;
+      _state = ResultState.error;
       notifyListeners();
       return _message = 'Error --> $e';
     }

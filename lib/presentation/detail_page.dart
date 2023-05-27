@@ -27,6 +27,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final reviewProvider =
         Provider.of<RestaurantReviewProvider>(context, listen: false);
 
@@ -34,19 +35,20 @@ class DetailPage extends StatelessWidget {
       reviewProvider.resetState();
     });
 
+
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
           apiService: ApiService(), restaurant: restaurant),
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, state, _) {
-          if (state.state == ResultState.Loading) {
+          if (state.state == ResultState.loading) {
             return _buildScaffoldCenter(
                 context, const CircularProgressIndicator());
-          } else if (state.state == ResultState.HasData) {
+          } else if (state.state == ResultState.hasData) {
             return _buildScaffold(context, state.result.restaurant);
-          } else if (state.state == ResultState.NoData) {
+          } else if (state.state == ResultState.noData) {
             return _buildScaffoldCenter(context, Text(state.message));
-          } else if (state.state == ResultState.Error) {
+          } else if (state.state == ResultState.error) {
             return _buildScaffoldCenter(context, Text(state.message));
           } else {
             return _buildScaffoldCenter(context, Text(state.message));
@@ -189,15 +191,15 @@ class DetailPage extends StatelessWidget {
     return Consumer<RestaurantReviewProvider>(
       builder: (context, state, _) {
         print(state.state);
-        if (state.state == ResultState.Loading) {
+        if (state.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state.state == ResultState.HasData) {
+        } else if (state.state == ResultState.hasData) {
           return _buildListCustomerReview(state.result.customerReviews);
-        } else if (state.state == ResultState.NoData) {
+        } else if (state.state == ResultState.noData) {
           return Text(state.message);
-        } else if (state.state == ResultState.Error) {
+        } else if (state.state == ResultState.error) {
           return Text(state.message);
-        } else if (state.state == ResultState.InitialState) {
+        } else if (state.state == ResultState.initialState) {
           return _buildListCustomerReview(list);
         } else {
           return Text(state.message);
@@ -236,4 +238,5 @@ class DetailPage extends StatelessWidget {
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
     return SliverAppBarWidget(restaurant: restaurant);
   }
+
 }

@@ -67,9 +67,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildList(BuildContext context) {
     return Consumer<RestaurantProvider>(builder: (context, state, _) {
-      if (state.state == ResultState.Loading) {
+      if (state.state == ResultState.loading) {
         return const Center(child: ShimmerContainer());
-      } else if (state.state == ResultState.HasData) {
+      } else if (state.state == ResultState.hasData) {
         return ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
@@ -81,13 +81,13 @@ class _HomePageState extends State<HomePage> {
               );
             },
           );
-        } else if (state.state == ResultState.NoData) {
+        } else if (state.state == ResultState.noData) {
           return Center(
             child: Material(
               child: Text(state.message),
             ),
           );
-        } else if (state.state == ResultState.Error) {
+        } else if (state.state == ResultState.error) {
           return Center(
             child: Material(
               child: Text(state.message),
