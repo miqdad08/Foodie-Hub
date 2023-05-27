@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foodie_hub/presentation/search_restaurant.dart';
-import 'package:foodie_hub/provider/restaurant_provider.dart';
-import 'package:foodie_hub/utils/style_manager.dart';
-import 'package:provider/provider.dart';
-import '../utils/shimmer.dart';
-import '../widgets/card_restaurant.dart';
+import 'package:foodie_hub/presentation/setting_page.dart';
+
+import 'list_restaurant_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home-page';
@@ -18,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _bottomNavIndex = 0;
 
-  final List<Widget> _listWidget = [ListRestaurantPage(), SettingPage()];
+  final List<Widget> _listWidget = [const ListRestaurantPage(), const SettingPage()];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [
     BottomNavigationBarItem(
