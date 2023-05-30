@@ -7,6 +7,8 @@ import 'package:foodie_hub/widgets/card_menu.dart';
 import 'package:foodie_hub/widgets/form_review_widget.dart';
 import 'package:foodie_hub/widgets/sliver_appbar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
+
 import '../data/models/customer_review.dart';
 import '../data/models/restaurant.dart';
 import '../provider/restaurant_review_provider.dart';
@@ -139,8 +141,10 @@ class _DetailPageState extends State<DetailPage> {
                   style: getBlackTextStyle(
                       fontWeight: FontWeight.w600, fontSize: 22),
                 ),
-                Text(
+                ReadMoreText(
                   restaurant.description,
+                  trimCollapsedText: '...Show more',
+                  trimExpandedText: ' show less',
                   style: getBlackTextStyle(),
                 ),
                 const SizedBox(
@@ -250,5 +254,4 @@ class _DetailPageState extends State<DetailPage> {
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
     return SliverAppBarWidget(restaurant: restaurant);
   }
-
 }

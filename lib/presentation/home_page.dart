@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodie_hub/presentation/detail_page.dart';
+import 'package:foodie_hub/presentation/list_restaurant_page.dart';
 import 'package:foodie_hub/presentation/setting_page.dart';
+import 'package:foodie_hub/utils/notification_helper.dart';
 
 import 'list_restaurant_page.dart';
 
@@ -13,6 +16,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(DetailPage.routeName);
+  }
+
+  @override
+  void dispose() {
+    selectedNotificationSubject.close();
+    super.dispose();
+  }
+
   int _bottomNavIndex = 0;
 
   final List<Widget> _listWidget = [const ListRestaurantPage(), const SettingPage()];

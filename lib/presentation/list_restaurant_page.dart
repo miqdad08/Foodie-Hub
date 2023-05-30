@@ -3,7 +3,7 @@ import 'package:foodie_hub/presentation/search_restaurant.dart';
 import 'package:provider/provider.dart';
 import '../provider/restaurant_provider.dart';
 import '../utils/result_state_util.dart';
-import '../utils/shimmer.dart';
+import '../widgets/shimmer.dart';
 import '../utils/style_manager.dart';
 import '../widgets/card_restaurant.dart';
 

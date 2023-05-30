@@ -4,8 +4,9 @@ import 'package:foodie_hub/utils/style_manager.dart';
 import 'package:foodie_hub/widgets/card_search_restaurant.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/restaurant_provider.dart';
+import '../widgets/shimmer.dart';
 import '../utils/result_state_util.dart';
-import '../utils/shimmer.dart';
 import '../widgets/search_widget.dart';
 
 class SearchRestaurant extends StatelessWidget {
