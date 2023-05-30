@@ -17,6 +17,7 @@ import 'package:foodie_hub/utils/background_service.dart';
 import 'package:foodie_hub/utils/navigation.dart';
 import 'package:foodie_hub/utils/notification_helper.dart';
 import 'package:foodie_hub/utils/pref_helper.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,17 +50,17 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RestaurantProvider>(
-          create: (context) => RestaurantProvider(apiService: ApiService()),
+          create: (context) => RestaurantProvider(apiService: ApiService(Client())),
         ),
         ChangeNotifierProvider<RestaurantReviewProvider>(
           create: (context) =>
-              RestaurantReviewProvider(apiService: ApiService()),
+              RestaurantReviewProvider(apiService: ApiService(Client())),
         ),
         ChangeNotifierProvider<SchedulingProvider>(
             create: (context) => SchedulingProvider()),
         ChangeNotifierProvider(
             create: (_) => SearchRestaurantProvider(
-                  apiService: ApiService(),
+                  apiService: ApiService(Client()),
                 )),
         ChangeNotifierProvider<PrefProvider>(
             create: (_) => PrefProvider(

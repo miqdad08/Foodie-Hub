@@ -6,6 +6,7 @@ import 'package:foodie_hub/widgets/card_customer_review.dart';
 import 'package:foodie_hub/widgets/card_menu.dart';
 import 'package:foodie_hub/widgets/form_review_widget.dart';
 import 'package:foodie_hub/widgets/sliver_appbar_widget.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -37,7 +38,7 @@ class DetailPage extends StatelessWidget {
 
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
-          apiService: ApiService(), restaurant: restaurant),
+          apiService: ApiService(Client()), restaurant: restaurant),
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {
