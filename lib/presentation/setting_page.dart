@@ -24,30 +24,31 @@ class SettingPage extends StatelessWidget {
 
   Consumer<PrefProvider> _buildList() {
     return Consumer<PrefProvider>(builder: (context, provider, _) {
-        return ListView(children: [
-          Material(
-            child: ListTile(
-                title: Text(
-                  'Daily Notifications',
-                  style: getBlackTextStyle(),
-                ),
-                trailing: Consumer<SchedulingProvider>(
-                  builder: (context, scheduled, _) {
-                    return Switch.adaptive(
-                      value: provider.isDailyNewsActive,
-                      onChanged: (value) async {
-                        if (Platform.isIOS) {
-                          customDialog(context);
-                        } else {
-                          scheduled.scheduledNews(value);
-                          provider.enableDailyNotif(value);
-                        }
-                      },
-                    );
-                  },
-                )),
-          )
-        ]);
-      });
+      return ListView(children: [
+        Material(
+          child: ListTile(
+              title: Text(
+                'Daily Notifications',
+                style: getBlackTextStyle(),
+              ),
+              trailing: Consumer<SchedulingProvider>(
+                builder: (context, scheduled, _) {
+                  return Switch.adaptive(
+                    activeColor: Colors.amberAccent,
+                    value: provider.isDailyNewsActive,
+                    onChanged: (value) async {
+                      if (Platform.isIOS) {
+                        customDialog(context);
+                      } else {
+                        scheduled.scheduledNews(value);
+                        provider.enableDailyNotif(value);
+                      }
+                    },
+                  );
+                },
+              )),
+        )
+      ]);
+    });
   }
 }
