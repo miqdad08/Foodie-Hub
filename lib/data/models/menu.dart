@@ -1,15 +1,15 @@
 import 'models.dart';
 
-class Menus {
+class Menu {
   final List<Category> foods;
   final List<Category> drinks;
 
-  Menus({
+  Menu({
     required this.foods,
     required this.drinks,
   });
 
-  factory Menus.fromJson(Map<String, dynamic> json) => Menus(
+  factory Menu.fromJson(Map<String, dynamic> json) => Menu(
     foods: List<Category>.from(json["foods"].map((x) => Category.fromJson(x))),
     drinks: List<Category>.from(json["drinks"].map((x) => Category.fromJson(x))),
   );

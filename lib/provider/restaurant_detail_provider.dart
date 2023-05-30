@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:foodie_hub/data/api/api_service.dart';
-import 'package:foodie_hub/provider/restaurant_provider.dart';
 import '../data/models/models.dart';
+import '../utils/result_state_util.dart';
 
 class RestaurantDetailProvider extends ChangeNotifier {
   RestaurantElement restaurant;
@@ -31,8 +31,6 @@ class RestaurantDetailProvider extends ChangeNotifier {
       notifyListeners();
       final restaurantDetail =
           await apiService.getRestaurantById(restaurant.id);
-      print(restaurantDetail.toString());
-
       restaurantDetail.fold((error) {
         _state = ResultState.noData;
         notifyListeners();

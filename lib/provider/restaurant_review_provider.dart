@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/data/api/api_service.dart';
 import 'package:foodie_hub/data/models/customer_review_model.dart';
-import 'package:foodie_hub/provider/restaurant_provider.dart';
+
+import '../utils/result_state_util.dart';
 
 
 
@@ -13,7 +14,7 @@ class RestaurantReviewProvider extends ChangeNotifier {
   }
 
   late CustomerReviewModel _restaurantCustomerReview;
-  ResultState? _state;
+  ResultState? _state = ResultState.initialState;
   String _message = '';
 
   String get message => _message;
@@ -40,6 +41,7 @@ class RestaurantReviewProvider extends ChangeNotifier {
         return _message = 'Gagal Post Review';
       }, (data) {
         _state = ResultState.hasData;
+        // notifyListeners();
         notifyListeners();
         return _restaurantCustomerReview = data;
       });

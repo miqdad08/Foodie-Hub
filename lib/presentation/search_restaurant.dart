@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/restaurant_provider.dart';
 import '../widgets/shimmer.dart';
+import '../utils/result_state_util.dart';
 import '../widgets/search_widget.dart';
 
 class SearchRestaurant extends StatelessWidget {

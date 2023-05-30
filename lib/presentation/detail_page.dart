@@ -12,30 +12,45 @@ import 'package:readmore/readmore.dart';
 
 import '../data/models/customer_review.dart';
 import '../data/models/restaurant.dart';
-import '../provider/restaurant_provider.dart';
 import '../provider/restaurant_review_provider.dart';
+import '../utils/result_state_util.dart';
 import '../utils/style_manager.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   static const routeName = '/detail-page';
 
   final RestaurantElement restaurant;
 
   DetailPage({super.key, required this.restaurant});
 
-  TextEditingController reviewController = TextEditingController();
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
 
-  TextEditingController nameController = TextEditingController();
+class _DetailPageState extends State<DetailPage> {
+
+  final TextEditingController reviewController = TextEditingController();
+
+  final TextEditingController nameController = TextEditingController();
+
+
+
+  @override
+  void initState() {
+    final reviewProvider = Provider.of<RestaurantReviewProvider>(context, listen: false);
+    reviewProvider.resetState();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    reviewController.dispose();
+    nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final reviewProvider =
-        Provider.of<RestaurantReviewProvider>(context, listen: false);
-
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      reviewProvider.resetState();
-    });
-
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
           apiService: ApiService(Client()), restaurant: restaurant),
@@ -80,33 +95,23 @@ class DetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Column(
                   children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Colors.redAccent,
-                    ),
-                    Text(
-                      restaurant.city,
-                      style: getBlackTextStyle(),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.redAccent,
+                        ),
+                        Text(
+                          restaurant.city,
+                          style: getBlackTextStyle(),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    Text(
-                      restaurant.rating.toString(),
-                      style: getBlackTextStyle(),
-                    ),
-                  ],
-                ),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -185,7 +190,7 @@ class DetailPage extends StatelessWidget {
     return FormReviewWidget(
       nameController: nameController,
       reviewController: reviewController,
-      restaurant: restaurant,
+      restaurant: widget.restaurant,
     );
   }
 
@@ -238,6 +243,6 @@ class DetailPage extends StatelessWidget {
   }
 
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
-    return SliverAppBarWidget(restaurant: restaurant);
+    return SliverAppBarWidget(restaurant: restaurant, restaurantElement: widget.restaurant,);
   }
 }

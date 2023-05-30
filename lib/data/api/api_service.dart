@@ -22,6 +22,7 @@ class ApiService {
   Future<RestaurantModel> getRestaurant() async {
     final response = await client.get(Uri.parse("$_baseUrl/list"));
     try {
+      final response = await http.get(Uri.parse("$_baseUrl/list"));
       if (response.statusCode == 200) {
         return RestaurantModel.fromJson(jsonDecode(response.body));
       } else {
