@@ -28,16 +28,14 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-
   final TextEditingController reviewController = TextEditingController();
 
   final TextEditingController nameController = TextEditingController();
 
-
-
   @override
   void initState() {
-    final reviewProvider = Provider.of<RestaurantReviewProvider>(context, listen: false);
+    final reviewProvider =
+        Provider.of<RestaurantReviewProvider>(context, listen: false);
     reviewProvider.resetState();
     super.initState();
   }
@@ -53,7 +51,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
-          apiService: ApiService(Client()), restaurant: restaurant),
+          apiService: ApiService(Client()), restaurant: widget.restaurant),
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, state, _) {
           if (state.state == ResultState.loading) {
@@ -111,7 +109,6 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ],
                 ),
-
                 const SizedBox(
                   height: 10,
                 ),
@@ -243,6 +240,9 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
-    return SliverAppBarWidget(restaurant: restaurant, restaurantElement: widget.restaurant,);
+    return SliverAppBarWidget(
+      restaurant: restaurant,
+      restaurantElement: widget.restaurant,
+    );
   }
 }

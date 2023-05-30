@@ -9,7 +9,8 @@ class SliverAppBarWidget extends StatelessWidget {
   final Restaurant restaurant;
   final RestaurantElement restaurantElement;
 
-  const SliverAppBarWidget({Key? key, required this.restaurant, required this.restaurantElement})
+  const SliverAppBarWidget(
+      {Key? key, required this.restaurant, required this.restaurantElement})
       : super(key: key);
 
   @override
@@ -77,15 +78,16 @@ class SliverAppBarWidget extends StatelessWidget {
                   return Expanded(
                     child: isFavorited
                         ? IconButton(
-                            icon: const Icon(Icons.bookmark),
+                            icon: const Icon(Icons.favorite),
                             color: Colors.red,
                             onPressed: () =>
                                 state.removeFavorite(restaurant.id),
                           )
                         : IconButton(
-                            icon: const Icon(Icons.bookmark_border),
+                            icon: const Icon(Icons.favorite_border),
                             color: Colors.grey,
-                            onPressed: () => state.addFavorite(restaurantElement),
+                            onPressed: () =>
+                                state.addFavorite(restaurantElement),
                           ),
                   );
                 },

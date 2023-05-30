@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _listWidget = [
     const ListRestaurantPage(),
+    const FavoritePage(),
     const SettingPage(),
-    const FavoritePage()
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [
@@ -48,16 +48,16 @@ class _HomePageState extends State<HomePage> {
     ),
     BottomNavigationBarItem(
       icon: Icon(
-        Icons.settings,
+        Icons.favorite,
       ),
-      label: 'Settings',
+      label: 'Favorite',
       backgroundColor: Colors.black,
     ),
     BottomNavigationBarItem(
       icon: Icon(
-        Icons.favorite,
+        Icons.settings,
       ),
-      label: 'Favorite',
+      label: 'Settings',
       backgroundColor: Colors.black,
     ),
   ];

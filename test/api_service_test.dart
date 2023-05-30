@@ -14,8 +14,7 @@ void main() {
       when(mockClient
               .get(Uri.parse('https://restaurant-api.dicoding.dev/list')))
           .thenAnswer((_) async => http.Response(
-              '{"error":false,"message":"success","count":20,"restaurants":[]}',
-              200));
+              '{"error":false,"message":"success","restaurant":{}}', 200));
 
       expect(
           await ApiService(mockClient).getRestaurant(), isA<RestaurantModel>());
