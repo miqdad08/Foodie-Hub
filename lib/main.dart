@@ -8,6 +8,7 @@ import 'package:foodie_hub/presentation/detail_page.dart';
 import 'package:foodie_hub/presentation/home_page.dart';
 import 'package:foodie_hub/presentation/search_restaurant.dart';
 import 'package:foodie_hub/presentation/splash_page.dart';
+import 'package:foodie_hub/provider/pref_provider.dart';
 import 'package:foodie_hub/provider/restaurant_provider.dart';
 import 'package:foodie_hub/provider/restaurant_review_provider.dart';
 import 'package:foodie_hub/provider/scheduling_provider.dart';
@@ -15,7 +16,9 @@ import 'package:foodie_hub/provider/search_restaurant_provider.dart';
 import 'package:foodie_hub/utils/background_service.dart';
 import 'package:foodie_hub/utils/navigation.dart';
 import 'package:foodie_hub/utils/notification_helper.dart';
+import 'package:foodie_hub/utils/pref_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/api/api_service.dart';
 
@@ -58,6 +61,10 @@ class MyApp extends StatelessWidget {
             create: (_) => SearchRestaurantProvider(
                   apiService: ApiService(),
                 )),
+        ChangeNotifierProvider<PrefProvider>(
+            create: (_) => PrefProvider(
+                prefHelper: PrefHelper(
+                    sharedPreferences: SharedPreferences.getInstance())))
       ],
       child: _materialApp(),
     );
@@ -67,7 +74,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 1,
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
+          scaffoldBackgroundColor: Colors.white),
       initialRoute: SplashPage.routeName,
       routes: {
         HomePage.routeName: (context) => const HomePage(),

@@ -7,6 +7,7 @@ import 'package:foodie_hub/widgets/card_menu.dart';
 import 'package:foodie_hub/widgets/form_review_widget.dart';
 import 'package:foodie_hub/widgets/sliver_appbar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 
 import '../data/models/customer_review.dart';
 import '../data/models/restaurant.dart';
@@ -27,14 +28,12 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final reviewProvider =
         Provider.of<RestaurantReviewProvider>(context, listen: false);
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       reviewProvider.resetState();
     });
-
 
     return ChangeNotifierProvider(
       create: (context) => RestaurantDetailProvider(
@@ -127,8 +126,10 @@ class DetailPage extends StatelessWidget {
                   style: getBlackTextStyle(
                       fontWeight: FontWeight.w600, fontSize: 22),
                 ),
-                Text(
+                ReadMoreText(
                   restaurant.description,
+                  trimCollapsedText: '...Show more',
+                  trimExpandedText: ' show less',
                   style: getBlackTextStyle(),
                 ),
                 const SizedBox(
@@ -238,5 +239,4 @@ class DetailPage extends StatelessWidget {
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
     return SliverAppBarWidget(restaurant: restaurant);
   }
-
 }

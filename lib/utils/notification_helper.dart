@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodie_hub/data/models/models.dart';
+import 'package:foodie_hub/presentation/detail_page.dart';
 import 'package:foodie_hub/utils/received_notification.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -54,16 +53,13 @@ class NotificationHelper {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
     RestaurantModel restaurant,
   ) async {
-
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      _channelId,
-      _channelName,
-      channelDescription: _channelDescription,
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      styleInformation: const DefaultStyleInformation(true, true)
-    );
+        _channelId, _channelName,
+        channelDescription: _channelDescription,
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+        styleInformation: DefaultStyleInformation(true, true));
 
     var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
 
@@ -72,10 +68,12 @@ class NotificationHelper {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    var titleNotification = 'Foodie Hub';
-    var bodyNotification = 'Let\'s find your favorite restaurant';
+    var titleNotification = '<b>Recommendation Restaurant For You.</b>';
+    var restaurantData = restaurant.restaurants;
+    var randomData = Random().nextInt(restaurantData.length);
+    var restaurantName = restaurantData[randomData].name;
+    var bodyNotification = '$restaurantName';
 
-    // data for random restaurant
     await flutterLocalNotificationsPlugin.show(
       0,
       titleNotification,
@@ -87,8 +85,9 @@ class NotificationHelper {
 
   void configureSelectNotificationSubject(String route) {
     selectedNotificationSubject.stream.listen((String? payload) async {
-      var data = Restaurant.fromJson(json.decode(payload ?? ''));
-      await Navigation.intentWithData(route, data);
+      var data = RestaurantModel.fromJson(json.decode(payload ?? ''));
+      var restaurant = data.restaurants;
+      await Navigation.intentWithData(DetailPage.routeName, restaurant);
     });
   }
 }
