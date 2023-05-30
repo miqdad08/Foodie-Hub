@@ -34,9 +34,9 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   void initState() {
-    super.initState();
     final reviewProvider = Provider.of<RestaurantReviewProvider>(context, listen: false);
     reviewProvider.resetState();
+    super.initState();
   }
 
   @override
@@ -92,33 +92,23 @@ class _DetailPageState extends State<DetailPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Column(
                   children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Colors.redAccent,
-                    ),
-                    Text(
-                      restaurant.city,
-                      style: getBlackTextStyle(),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.redAccent,
+                        ),
+                        Text(
+                          restaurant.city,
+                          style: getBlackTextStyle(),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    Text(
-                      restaurant.rating.toString(),
-                      style: getBlackTextStyle(),
-                    ),
-                  ],
-                ),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -248,7 +238,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget _buildSliverAppBar(BuildContext context, Restaurant restaurant) {
-    return SliverAppBarWidget(restaurant: restaurant);
+    return SliverAppBarWidget(restaurant: restaurant, restaurantElement: widget.restaurant,);
   }
 
 }

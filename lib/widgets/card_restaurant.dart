@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/data/api/api_service.dart';
 import 'package:foodie_hub/presentation/detail_page.dart';
-
 import '../data/models/models.dart';
 import '../utils/style_manager.dart';
 
@@ -35,7 +34,7 @@ class CardRestaurant extends StatelessWidget {
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset:
-                            const Offset(0, 3), // changes position of shadow
+                        const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -44,7 +43,7 @@ class CardRestaurant extends StatelessWidget {
                       child: FadeInImage(
                         image: NetworkImage(
                             ApiService.imgUrl + restaurant.pictureId
-                            ),
+                        ),
                         placeholder: const AssetImage('assets/images/grey.png'),
                         height: 150,
                         width: 145,
@@ -98,5 +97,13 @@ class CardRestaurant extends StatelessWidget {
         const SizedBox(height: 14),
       ],
     );
+    //   FutureBuilder(
+    //   future: state.isFavorited(restaurant.id),
+    //   builder: (context, snapshot) {
+    //     var isFavorited = snapshot.data ?? false;
+    //     print(isFavorited);
+    //     return
+    //   }
+    // );
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodie_hub/data/db/database_helper.dart';
 import 'package:foodie_hub/data/models/restaurant_model.dart';
 import 'package:foodie_hub/presentation/detail_page.dart';
 import 'package:foodie_hub/presentation/home_page.dart';
 import 'package:foodie_hub/presentation/search_restaurant.dart';
 import 'package:foodie_hub/presentation/splash_page.dart';
+import 'package:foodie_hub/provider/database_provider.dart';
 import 'package:foodie_hub/provider/restaurant_provider.dart';
 import 'package:foodie_hub/provider/restaurant_review_provider.dart';
 import 'package:foodie_hub/provider/search_restaurant_provider.dart';
@@ -23,16 +25,25 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RestaurantProvider>(
-          create: (context) => RestaurantProvider(apiService: ApiService()),
+          create: (context) => RestaurantProvider(
+            apiService: ApiService(),
+          ),
         ),
         ChangeNotifierProvider<RestaurantReviewProvider>(
-          create: (context) =>
-              RestaurantReviewProvider(apiService: ApiService()),
+          create: (context) => RestaurantReviewProvider(
+            apiService: ApiService(),
+          ),
         ),
         ChangeNotifierProvider(
-            create: (_) => SearchRestaurantProvider(
-                  apiService: ApiService(),
-                )),
+          create: (_) => SearchRestaurantProvider(
+            apiService: ApiService(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DatabaseProvider(
+            databaseHelper: DatabaseHelper(),
+          ),
+        ),
       ],
       child: _materialApp(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodie_hub/presentation/favorite_page.dart';
 import 'package:foodie_hub/presentation/setting_page.dart';
 
 import 'list_restaurant_page.dart';
@@ -15,15 +16,34 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _bottomNavIndex = 0;
 
-  final List<Widget> _listWidget = [const ListRestaurantPage(), const SettingPage()];
+  final List<Widget> _listWidget = [
+    const ListRestaurantPage(),
+    const SettingPage(),
+    const FavoritePage()
+  ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = const [
     BottomNavigationBarItem(
-        icon: Icon(Icons.home), label: 'Home', backgroundColor: Colors.black),
+      icon: Icon(
+        Icons.home,
+      ),
+      label: 'Home',
+      backgroundColor: Colors.black,
+    ),
     BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: 'Settings',
-        backgroundColor: Colors.black),
+      icon: Icon(
+        Icons.settings,
+      ),
+      label: 'Settings',
+      backgroundColor: Colors.black,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.favorite,
+      ),
+      label: 'Favorite',
+      backgroundColor: Colors.black,
+    ),
   ];
 
   void _onBottomNavTapped(int index) {

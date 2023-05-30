@@ -14,7 +14,7 @@ class RestaurantReviewProvider extends ChangeNotifier {
   }
 
   late CustomerReviewModel _restaurantCustomerReview;
-  ResultState? _state;
+  ResultState? _state = ResultState.initialState;
   String _message = '';
 
   String get message => _message;
@@ -41,6 +41,7 @@ class RestaurantReviewProvider extends ChangeNotifier {
         return _message = 'Gagal Post Review';
       }, (data) {
         _state = ResultState.hasData;
+        // notifyListeners();
         notifyListeners();
         return _restaurantCustomerReview = data;
       });

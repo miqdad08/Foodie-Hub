@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:foodie_hub/provider/database_provider.dart';
+import 'package:provider/provider.dart';
 import '../data/api/api_service.dart';
 import '../data/models/models.dart';
 import '../utils/style_manager.dart';
 
 class SliverAppBarWidget extends StatelessWidget {
   final Restaurant restaurant;
+  final RestaurantElement restaurantElement;
 
-  const SliverAppBarWidget({Key? key, required this.restaurant})
+  const SliverAppBarWidget({Key? key, required this.restaurant, required this.restaurantElement})
       : super(key: key);
 
   @override
@@ -54,12 +57,41 @@ class SliverAppBarWidget extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(
-          restaurant.name,
-          style: getWhiteTextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
+        title: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Text(
+                restaurant.name,
+                style: getWhiteTextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Consumer<DatabaseProvider>(builder: (context, state, _) {
+              return FutureBuilder(
+                future: state.isFavorited(restaurant.id),
+                builder: (context, snapshot) {
+                  var isFavorited = snapshot.data ?? false;
+                  return Expanded(
+                    child: isFavorited
+                        ? IconButton(
+                            icon: const Icon(Icons.bookmark),
+                            color: Colors.red,
+                            onPressed: () =>
+                                state.removeFavorite(restaurant.id),
+                          )
+                        : IconButton(
+                            icon: const Icon(Icons.bookmark_border),
+                            color: Colors.grey,
+                            onPressed: () => state.addFavorite(restaurantElement),
+                          ),
+                  );
+                },
+              );
+            }),
+          ],
         ),
         // titlePadding: const EdgeInsets.only(top: 16, left: 20),
       ),
