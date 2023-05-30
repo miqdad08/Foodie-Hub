@@ -72,9 +72,8 @@ class NotificationHelper {
     var restaurantData = restaurant.restaurants;
     var randomData = Random().nextInt(restaurantData.length);
     var restaurantName = restaurantData[randomData].name;
-    var bodyNotification = 'Recommended Restaurant: $restaurantName';
+    var bodyNotification = '$restaurantName';
 
-    // data for random restaurant
     await flutterLocalNotificationsPlugin.show(
       0,
       titleNotification,
