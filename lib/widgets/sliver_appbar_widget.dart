@@ -95,7 +95,7 @@ class SliverAppBarWidget extends StatelessWidget {
             }),
           ],
         ),
-        // titlePadding: const EdgeInsets.only(top: 16, left: 20),
+        titlePadding: const EdgeInsets.only(top: 16, left: 60, bottom: 5),
       ),
     );
   }
