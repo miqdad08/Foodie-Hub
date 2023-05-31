@@ -9,7 +9,6 @@ import 'package:foodie_hub/widgets/sliver_appbar_widget.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-
 import '../data/models/customer_review.dart';
 import '../data/models/restaurant.dart';
 import '../provider/restaurant_review_provider.dart';
@@ -21,7 +20,7 @@ class DetailPage extends StatefulWidget {
 
   final RestaurantElement restaurant;
 
-  DetailPage({super.key, required this.restaurant});
+  const DetailPage({super.key, required this.restaurant});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -194,7 +193,6 @@ class _DetailPageState extends State<DetailPage> {
   Consumer _buildCustomerReview(List<CustomerReview> list) {
     return Consumer<RestaurantReviewProvider>(
       builder: (context, state, _) {
-        print(state.state);
         if (state.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.hasData) {

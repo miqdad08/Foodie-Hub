@@ -34,7 +34,7 @@ class CardRestaurant extends StatelessWidget {
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset:
-                        const Offset(0, 3), // changes position of shadow
+                        const Offset(0, 3),
                       ),
                     ],
                   ),

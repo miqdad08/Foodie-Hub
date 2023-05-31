@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/widgets/card_restaurant.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/database_provider.dart';
 import '../utils/result_state_util.dart';
 

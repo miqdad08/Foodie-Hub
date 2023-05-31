@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
 import '../models/customer_review_model.dart';
 import '../models/restaurant_detail_model.dart';
 import '../models/restaurant_model.dart';
@@ -16,12 +15,12 @@ class ApiService {
   late final String query;
   static const String imgUrl =
       'https://restaurant-api.dicoding.dev/images/small/';
-  static const String _baseUrl = 'https://restaurant-api.dicoding.dev';
+  static const String baseUrl = 'https://restaurant-api.dicoding.dev';
   static const String _searchRestaurant = '/search?q=';
 
   Future<RestaurantModel> getRestaurant() async {
     try {
-      final response = await http.get(Uri.parse("$_baseUrl/list"));
+      final response = await http.get(Uri.parse("$baseUrl/list"));
       if (response.statusCode == 200) {
         return RestaurantModel.fromJson(jsonDecode(response.body));
       } else {
@@ -33,7 +32,7 @@ class ApiService {
   }
 
   Future<Either<String, RestaurantDetail>> getRestaurantById(String id) async {
-    final response = await client.get(Uri.parse('$_baseUrl/detail/$id'));
+    final response = await client.get(Uri.parse('$baseUrl/detail/$id'));
     if (response.statusCode == 200) {
       return Right(RestaurantDetail.fromJson(jsonDecode(response.body)));
     } else {
@@ -49,7 +48,7 @@ class ApiService {
     final body = json.encode({'id': id, 'name': name, 'review': review});
 
     final response = await http.post(
-      Uri.parse('$_baseUrl/review'),
+      Uri.parse('$baseUrl/review'),
       headers: {'Content-Type': 'application/json'},
       body: body,
     );
@@ -68,7 +67,7 @@ class ApiService {
 
   Future<RestaurantSearch> searchRestaurant(String query) async {
     final response =
-        await client.get(Uri.parse('${_baseUrl + _searchRestaurant}$query'));
+        await client.get(Uri.parse('${baseUrl + _searchRestaurant}$query'));
     if (response.statusCode == 200) {
       return RestaurantSearch.fromJson(jsonDecode(response.body));
     } else {

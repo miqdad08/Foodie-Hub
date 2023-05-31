@@ -41,9 +41,6 @@ class DatabaseHelper {
   Future<void> insertFavorite(RestaurantElement restaurant) async {
     final db = await database;
     await db!.insert(_tblFavorite, restaurant.toJson());
-    var data = await db.query(_tblFavorite);
-    print(restaurant.id);
-    print(data);
   }
 
   Future<List<RestaurantElement>> getFavorites() async {

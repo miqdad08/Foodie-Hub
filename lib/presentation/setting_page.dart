@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/provider/pref_provider.dart';
 import 'package:foodie_hub/provider/scheduling_provider.dart';

@@ -70,29 +70,31 @@ class SliverAppBarWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Consumer<DatabaseProvider>(builder: (context, state, _) {
-              return FutureBuilder(
-                future: state.isFavorited(restaurant.id),
-                builder: (context, snapshot) {
-                  var isFavorited = snapshot.data ?? false;
-                  return Expanded(
-                    child: isFavorited
-                        ? IconButton(
-                            icon: const Icon(Icons.favorite),
-                            color: Colors.red,
-                            onPressed: () =>
-                                state.removeFavorite(restaurant.id),
-                          )
-                        : IconButton(
-                            icon: const Icon(Icons.favorite_border),
-                            color: Colors.grey,
-                            onPressed: () =>
-                                state.addFavorite(restaurantElement),
-                          ),
-                  );
-                },
-              );
-            }),
+            Consumer<DatabaseProvider>(
+              builder: (context, state, _) {
+                return FutureBuilder(
+                  future: state.isFavorited(restaurant.id),
+                  builder: (context, snapshot) {
+                    var isFavorited = snapshot.data ?? false;
+                    return Expanded(
+                      child: isFavorited
+                          ? IconButton(
+                              icon: const Icon(Icons.favorite),
+                              color: Colors.red,
+                              onPressed: () =>
+                                  state.removeFavorite(restaurant.id),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.favorite_border),
+                              color: Colors.grey,
+                              onPressed: () =>
+                                  state.addFavorite(restaurantElement),
+                            ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
         titlePadding: const EdgeInsets.only(top: 16, left: 60, bottom: 5),

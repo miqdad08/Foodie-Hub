@@ -52,18 +52,27 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RestaurantProvider>(
-          create: (context) =>
-              RestaurantProvider(apiService: ApiService(Client())),
+          create: (context) => RestaurantProvider(
+            apiService: ApiService(
+              Client(),
+            ),
+          ),
         ),
         ChangeNotifierProvider<RestaurantReviewProvider>(
-          create: (context) =>
-              RestaurantReviewProvider(apiService: ApiService(Client())),
+          create: (context) => RestaurantReviewProvider(
+            apiService: ApiService(
+              Client(),
+            ),
+          ),
         ),
         ChangeNotifierProvider<SchedulingProvider>(
-            create: (context) => SchedulingProvider()),
+          create: (context) => SchedulingProvider(),
+        ),
         ChangeNotifierProvider(
           create: (_) => SearchRestaurantProvider(
-            apiService: ApiService(Client()),
+            apiService: ApiService(
+              Client(),
+            ),
           ),
         ),
         ChangeNotifierProvider(
@@ -72,9 +81,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider<PrefProvider>(
-            create: (_) => PrefProvider(
-                prefHelper: PrefHelper(
-                    sharedPreferences: SharedPreferences.getInstance())))
+          create: (_) => PrefProvider(
+            prefHelper: PrefHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
+            ),
+          ),
+        ),
       ],
       child: _materialApp(),
     );

@@ -41,7 +41,6 @@ class RestaurantReviewProvider extends ChangeNotifier {
         return _message = 'Gagal Post Review';
       }, (data) {
         _state = ResultState.hasData;
-        // notifyListeners();
         notifyListeners();
         return _restaurantCustomerReview = data;
       });
