@@ -31,13 +31,13 @@ class _DetailPageState extends State<DetailPage> {
 
   final TextEditingController nameController = TextEditingController();
 
-  @override
-  void initState() {
-    final reviewProvider =
-        Provider.of<RestaurantReviewProvider>(context, listen: false);
-    reviewProvider.resetState();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final reviewProvider =
+  //       Provider.of<RestaurantReviewProvider>(context, listen: false);
+  //   reviewProvider.resetState();
+  // }
 
   @override
   void dispose() {
@@ -191,12 +191,12 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Consumer _buildCustomerReview(List<CustomerReview> list) {
-    return Consumer<RestaurantReviewProvider>(
+    return Consumer<RestaurantDetailProvider>(
       builder: (context, state, _) {
         if (state.state == ResultState.loading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.hasData) {
-          return _buildListCustomerReview(state.result.customerReviews);
+          return _buildListCustomerReview(state.result.restaurant.customerReviews);
         } else if (state.state == ResultState.noData) {
           return Text(state.message);
         } else if (state.state == ResultState.error) {
@@ -215,6 +215,7 @@ class _DetailPageState extends State<DetailPage> {
       shrinkWrap: true,
       padding: EdgeInsets.zero,
       itemCount: list.length,
+      scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return CardCustomerReview(customerReview: list[index]);

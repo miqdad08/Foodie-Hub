@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/models/models.dart';
+import '../provider/restaurant_detail_provider.dart';
 import '../provider/restaurant_review_provider.dart';
 import '../utils/style_manager.dart';
 
@@ -55,11 +56,15 @@ class FormReviewWidget extends StatelessWidget {
                   ),
                 );
               } else {
-                state.postReviewRestaurant(
-                  restaurant.id,
-                  nameController.text,
-                  reviewController.text,
-                );
+                state
+                    .postReviewRestaurant(
+                      restaurant.id,
+                      nameController.text,
+                      reviewController.text,
+                    )
+                    .then((value) => Provider.of<RestaurantDetailProvider>(
+                        context,
+                        listen: false).fetchDetailRestaurant());
                 nameController.clear();
                 reviewController.clear();
                 ScaffoldMessenger.of(context).showSnackBar(

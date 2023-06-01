@@ -33,22 +33,28 @@ class CardRestaurant extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset:
-                        const Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Hero(
-                      tag: restaurant.pictureId,
-                      child: FadeInImage(
-                        image: NetworkImage(
-                            ApiService.imgUrl + restaurant.pictureId
-                        ),
-                        placeholder: const AssetImage('assets/images/grey.png'),
-                        height: 150,
-                        width: 145,
-                        fit: BoxFit.cover,
-                      )),
+                    tag: restaurant.pictureId,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/grey.png',
+                      image: "${ApiService.imgUrl}${restaurant.pictureId}",
+                      fit: BoxFit.cover,
+                      height: 150,
+                      width: 145,
+                      imageErrorBuilder: (context, exception, stackTrace) {
+                        return Image.asset(
+                          "assets/images/grey.png",
+                          height: 150,
+                          width: 145,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
               Expanded(
