@@ -12,13 +12,13 @@ import 'api_service_test.mocks.dart';
 void main() {
   group('Check Api Service', () {
     test('Check get restaurant list', () async {
-      final client = MockClient();
-      when(client.get(Uri.parse('https://restaurant-api.dicoding.dev/list')))
+      final mockClient = MockClient();
+      when(mockClient.get(Uri.parse('https://restaurant-api.dicoding.dev/list')))
           .thenAnswer((_) async => http.Response(
               '{"error":false,"message":"success","count":20,"restaurants":[]}',
               200));
 
-      expect(await ApiService(client).getRestaurant(), isA<RestaurantModel>());
+      expect(await ApiService(mockClient).getRestaurant(), isA<RestaurantModel>());
     });
   });
 }
