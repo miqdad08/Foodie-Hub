@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:foodie_hub/data/api/api_service.dart';
+import 'package:http/http.dart';
 
 import '../data/models/models.dart';
 import '../utils/result_state_util.dart';

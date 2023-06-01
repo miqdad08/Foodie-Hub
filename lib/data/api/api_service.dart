@@ -11,7 +11,6 @@ import '../models/restaurant_search.dart';
 
 class ApiService {
   final Client client;
-  ApiService(this.client);
 
   late final String query;
   static const String imgUrl =
@@ -19,16 +18,19 @@ class ApiService {
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev';
   static const String _searchRestaurant = '/search?q=';
 
+  ApiService(this.client);
+
   Future<RestaurantModel> getRestaurant() async {
     try {
-      final response = await http.get(Uri.parse("$_baseUrl/list"));
+      final response = await client.get(Uri.parse("$_baseUrl/list"));
       if (response.statusCode == 200) {
         return RestaurantModel.fromJson(jsonDecode(response.body));
       } else {
         throw 'Failed to load restaurant';
       }
-    } on Error {
-      throw 'No Internet Connection';
+    } on Error catch (e) {
+      print('Error: $e');
+      throw Exception('Something went wrong, please try again later');
     }
   }
 
