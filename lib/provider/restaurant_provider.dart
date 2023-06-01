@@ -43,7 +43,7 @@ class RestaurantProvider extends ChangeNotifier {
     } catch (e) {
       _state = ResultState.error;
       notifyListeners();
-      return _message = 'Error --> $e';
+      return _message = 'Service is unavailable at the moment, please try again later';
     }
   }
 }

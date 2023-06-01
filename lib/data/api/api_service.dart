@@ -27,8 +27,8 @@ class ApiService {
       } else {
         throw 'Failed to load restaurant';
       }
-    } catch (e) {
-      throw Exception('Failed to load restaurant$e');
+    } on Error {
+      throw 'No Internet Connection';
     }
   }
 

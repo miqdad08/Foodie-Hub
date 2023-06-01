@@ -48,7 +48,8 @@ class CardRestaurant extends StatelessWidget {
                         height: 150,
                         width: 145,
                         fit: BoxFit.cover,
-                      )),
+                      ),
+                      ),
                 ),
               ),
               Expanded(
