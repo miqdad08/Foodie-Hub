@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:foodie_hub/data/models/models.dart';
-import 'package:foodie_hub/presentation/detail_page.dart';
 import 'package:foodie_hub/utils/received_notification.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -87,7 +86,7 @@ class NotificationHelper {
     selectedNotificationSubject.stream.listen((String? payload) async {
       var data = RestaurantModel.fromJson(json.decode(payload ?? ''));
       var restaurant = data.restaurants;
-      await Navigation.intentWithData(DetailPage.routeName, restaurant);
+      await Navigation.intentWithData(route, restaurant);
     });
   }
 }
