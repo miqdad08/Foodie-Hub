@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+        // providers for notifier
       providers: [
         ChangeNotifierProvider<RestaurantProvider>(
           create: (context) => RestaurantProvider(
@@ -96,11 +97,14 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          // Materialapp designs
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             elevation: 1,
+              // icon theme color to make it clear
             iconTheme: IconThemeData(color: Colors.black),
           ),
+          // scaffold background color
           scaffoldBackgroundColor: Colors.white),
       initialRoute: SplashPage.routeName,
       routes: {
